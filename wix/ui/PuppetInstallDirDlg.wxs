@@ -34,6 +34,12 @@
                   Text="[PUPPET_MASTER_SERVER]"
                   Property="PUPPET_MASTER_SERVER" />
 
+                <Control Id="PuppetAgentEnvironmentText" Type="Text" X="20" Y="135" Width="290" Height="13" NoPrefix="yes"
+                  Text="Puppet environment to run in:" />
+                <Control Id="PuppetAgentEnvironmentText" Type="Edit" X="20" Y="150" Width="320" Height="18"
+                  Text="[PUPPET_AGENT_ENVIRONMENT]"
+                  Property="PUPPET_AGENT_ENVIRONMENT" />
+
                 <!-- Disabled in the GUI as per #12640
                 <Control Id="PuppetAgentCertNameText" Type="Text" X="20" Y="185" Width="290" Height="13" NoPrefix="yes"
                   Text="Certificate name of this Puppet agent:" />

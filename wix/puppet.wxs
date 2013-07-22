@@ -386,6 +386,12 @@
         Key="SOFTWARE\$(var.OurCompanyName)\$(var.OurCommonProductNameWord)"
         Name="RememberedPuppetMasterServer" Type="raw" />
     </Property>
+    <Property Id="PUPPET_AGENT_ENVIRONMENT" Value="production">
+      <!-- Recall the property in repair, upgrade, and uninstall scenarios -->
+      <RegistrySearch Id="RecallPuppetAgentEnvironment" Root="HKLM"
+        Key="SOFTWARE\$(var.OurCompanyName)\$(var.OurCommonProductNameWord)"
+        Name="RememberedPuppetAgentEnvironment" Type="raw" />
+    </Property>
     <Property Id="PUPPET_AGENT_CERTNAME">
       <!-- Recall the property in repair, upgrade, and uninstall scenarios -->
       <RegistrySearch Id="RecallPuppetAgentCertname" Root="HKLM"
@@ -417,6 +423,15 @@
     <CustomAction Id="SetFromCmdLinePuppetMasterServer"
       Property="PUPPET_MASTER_SERVER"
       Value="[CMDLINE_PUPPET_MASTER_SERVER]"
+      Execute="firstSequence" />
+    <!-- PUPPET_AGENT_ENVIRONMENT -->
+    <CustomAction Id="SaveCmdLinePuppetAgentEnvironment"
+      Property="[CMDLINE_PUPPET_AGENT_ENVIRONMENT]"
+      Value="[PUPPET_AGENT_ENVIRONMENT]"
+      Execute="firstSequence" />
+    <CustomAction Id="SetFromCmdLinePuppetAgentEnvironment"
+      Property="PUPPET_AGENT_ENVIRONMENT"
+      Value="[CMDLINE_PUPPET_AGENT_ENVIRONMENT]"
       Execute="firstSequence" />
     <!-- PUPPET_AGENT_CERTNAME -->
     <CustomAction Id="SaveCmdLinePuppetAgentCertname"
@@ -451,6 +466,11 @@
       <Custom Action='SetFromCmdLinePuppetMasterServer' After='AppSearch'>
         CMDLINE_PUPPET_MASTER_SERVER
       </Custom>
+      <!-- PUPPET_AGENT_ENVIRONMENT -->
+      <Custom Action='SaveCmdLinePuppetAgentEnvironment' Before='AppSearch' />
+      <Custom Action='SetFromCmdLinePuppetAgentEnvironment' After='AppSearch'>
+        CMDLINE_PUPPET_AGENT_ENVIRONMENT
+      </Custom>
       <!-- PUPPET_AGENT_CERTNAME -->
       <Custom Action='SaveCmdLinePuppetAgentCertname' Before='AppSearch' />
       <Custom Action='SetFromCmdLinePuppetAgentCertname' After='AppSearch'>
@@ -473,6 +493,11 @@
       <Custom Action='SaveCmdLinePuppetMasterServer' Before='AppSearch' />
       <Custom Action='SetFromCmdLinePuppetMasterServer' After='AppSearch'>
         CMDLINE_PUPPET_MASTER_SERVER
+      </Custom>
+      <!-- PUPPET_AGENT_ENVIRONMENT -->
+      <Custom Action='SaveCmdLinePuppetAgentEnvironment' Before='AppSearch' />
+      <Custom Action='SetFromCmdLinePuppetAgentEnvironment' After='AppSearch'>
+        CMDLINE_PUPPET_AGENT_ENVIRONMENT
       </Custom>
       <!-- PUPPET_AGENT_CERTNAME -->
       <Custom Action='SaveCmdLinePuppetAgentCertname' Before='AppSearch' />
